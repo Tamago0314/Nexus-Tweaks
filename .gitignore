@@ -1,0 +1,21 @@
+# Gradle
+.gradle/
+build/
+
+# Loom / 開発実行時の作業ディレクトリ
+run/
+.architectury-transformer/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,12 @@
+{
+  "required": false,
+  "package": "com.hikariserver.nexustweaks.mixin.itemscroller",
+  "compatibilityLevel": "${java}",
+  "plugin": "com.hikariserver.nexustweaks.mixin.itemscroller.ItemScrollerMixinPlugin",
+  "client": [
+    "MixinKeybindCallbacks"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "nexus-tweaks.gui.title.configs": "Nexus-Tweaks 設定 - %s",
+
+  "nexus-tweaks.gui.button.config.general": "General",
+  "nexus-tweaks.gui.button.config.tweaks": "Tweaks",
+
+  "nexus-tweaks.hotkeys.category": "Nexus-Tweaks のホットキー",
+
+  "nexus-tweaks.config.general.name.openConfig": "Open Nexus-Tweaks Config",
+  "nexus-tweaks.config.general.prettyName.openConfig": "Open Nexus-Tweaks Config",
+  "nexus-tweaks.config.general.comment.openConfig": "この設定画面を開くホットキー。\n既定は N + T（N を押しながら T）。",
+
+  "nexus-tweaks.config.tweaks.name.autoRepair": "Auto Repair",
+  "nexus-tweaks.config.tweaks.prettyName.autoRepair": "Auto Repair",
+  "nexus-tweaks.config.tweaks.comment.autoRepair": "有効にすると、何にも視点を合わせていない状態でアイテム使用キーを押したとき、\n所持している経験値を使って選択中のスロットの道具を修理します。\n比率はバニラの修繕と同じで、経験値 1 ポイントにつき耐久が 2 回復します。\nマルチプレイではサーバー側に Nexus-Sync を導入する必要があります。",
+
+  "nexus-tweaks.config.tweaks.name.autoRepairExclusions": "Auto Repair の除外リスト",
+  "nexus-tweaks.config.tweaks.prettyName.autoRepairExclusions": "Auto Repair の除外リスト",
+  "nexus-tweaks.config.tweaks.comment.autoRepairExclusions": "Auto Repair を絶対に発動させないアイテム ID の一覧。\n弓・盾・食料など使用アニメーションを持つアイテムと、\n防具・エリトラなど右クリックで装備できるアイテムは自動で除外されるので、\nここに入れる必要があるのは「アニメーション無しで空撃ちが成立するアイテム」だけです。\n代表例が釣り竿です。",
+
+  "nexus-tweaks.config.tweaks.name.massCraftOnServer": "massCraft をサーバーで実行",
+  "nexus-tweaks.config.tweaks.prettyName.massCraftOnServer": "massCraft をサーバーで実行",
+  "nexus-tweaks.config.tweaks.comment.massCraftOnServer": "有効にすると、Item Scroller の massCraft をクリックの連打ではなく\nサーバー（Nexus-Sync）に代行させます。\nクライアントは要求を 1 通送るだけで、グリッドへの充填・クラフト・成果物の投げ捨てはサーバーが行います。\nクライアントに Item Scroller、サーバーに Nexus-Sync が必要です。\nどちらかが無ければ、Item Scroller の通常の処理になります。",
+
+  "key.category.nexus-tweaks.main": "Nexus-Tweaks",
+  "key.nexus-tweaks.open_config": "Nexus-Tweaks の設定を開く",
+
+  "nexus-tweaks.message.repaired": "耐久を %s 回復しました（経験値 %s 消費）",
+  "nexus-tweaks.message.empty_hand": "メインハンドに何も持っていません",
+  "nexus-tweaks.message.not_damageable": "そのアイテムには耐久値がありません",
+  "nexus-tweaks.message.not_damaged": "そのアイテムは既に満タンです",
+  "nexus-tweaks.message.no_xp": "経験値が足りません",
+  "nexus-tweaks.message.disabled": "このサーバーでは Auto Repair が無効にされています",
+  "nexus-tweaks.message.unknown": "サーバーから不明な結果が返ってきました",
+  "nexus-tweaks.message.server_unsupported": "このサーバーには Nexus-Sync が入っていないため、Auto Repair は使えません",
+  "nexus-tweaks.message.mass_craft_disabled": "このサーバーでは massCraft の代行が無効です。Item Scroller の通常の処理で行います"
+}

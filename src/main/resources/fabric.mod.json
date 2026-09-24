@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "クライアント側 Tweaks MOD。視点を何にも合わせずに使用ボタンを押すと、所持経験値でメインハンドの道具を修繕します。Item Scroller の massCraft をサーバー（Nexus-Sync）に代行させることもできます。",
+  "authors": [
+    "Tamago"
+  ],
+  "license": "LGPL-3.0-or-later",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "com.hikariserver.nexustweaks.NexusTweaks"
+    ],
+    "client": [
+      "com.hikariserver.nexustweaks.NexusTweaksClient"
+    ]
+  },
+  "mixins": [
+    "${id}.mixins.json",
+    "${id}.itemscroller.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader}",
+    "minecraft": "${minecraft}",
+    "java": ">=${java}",
+    "${fabric_api}": "*",
+    "malilib": ">=${malilib_min}"
+  },
+  "suggests": {
+    "itemscroller": ">=${itemscroller_min}"
+  }
+}

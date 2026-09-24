@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+          cache: gradle
+
+      - name: Grant execute permission to gradlew
+        run: chmod +x ./gradlew
+
+      - name: Get version from tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      # タグと gradle.properties の mod_version がずれていると、
+      # 配布した jar のバージョンとリリース名が食い違うので先に弾く。
+      - name: Check tag matches mod_version
+        run: |
+          MOD_VERSION="$(grep -oP '^mod_version\s*=\s*\K.+' gradle.properties | tr -d '\r')"
+          if [ "$MOD_VERSION" != "${{ steps.version.outputs.version }}" ]; then
+            echo "tag=${{ steps.version.outputs.version }} but mod_version=$MOD_VERSION"
+            exit 1
+          fi
+
+      - name: Build
+        run: ./gradlew build --no-daemon
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Nexus-Tweaks v${{ steps.version.outputs.version }}"
+          files: build/libs/*.jar
+          generate_release_notes: true

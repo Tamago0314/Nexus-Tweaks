@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # 26.x は Java 25 が必須。Gradle のキャッシュも一緒に有効にする。
+      - name: Setup Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+          cache: gradle
+
+      - name: Grant execute permission to gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew build --no-daemon
+
+      # jar が出来ていること、配布物に依存 MOD のクラスが紛れ込んでいないことを確かめる。
+      # Item Scroller は compileOnly なので、ここに入っていたら依存の書き方が壊れている。
+      - name: Verify jar
+        run: |
+          JAR="$(ls build/libs/*.jar | grep -v -- '-sources.jar')"
+          echo "built: $JAR"
+          if unzip -l "$JAR" | grep -q 'fi/dy/masa'; then
+            echo "依存 MOD のクラスが jar に入っています: $JAR"
+            exit 1
+          fi
+
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexus-tweaks-build-artifacts
+          path: build/libs/*.jar
+          retention-days: 7

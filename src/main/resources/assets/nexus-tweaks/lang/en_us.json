@@ -1,0 +1,37 @@
+{
+  "nexus-tweaks.gui.title.configs": "Nexus-Tweaks Config - %s",
+
+  "nexus-tweaks.gui.button.config.general": "General",
+  "nexus-tweaks.gui.button.config.tweaks": "Tweaks",
+
+  "nexus-tweaks.hotkeys.category": "Nexus-Tweaks Hotkeys",
+
+  "nexus-tweaks.config.general.name.openConfig": "Open Nexus-Tweaks Config",
+  "nexus-tweaks.config.general.prettyName.openConfig": "Open Nexus-Tweaks Config",
+  "nexus-tweaks.config.general.comment.openConfig": "The hotkey that opens this config screen.\nThe default is N + T (hold N and press T).",
+
+  "nexus-tweaks.config.tweaks.name.autoRepair": "Auto Repair",
+  "nexus-tweaks.config.tweaks.prettyName.autoRepair": "Auto Repair",
+  "nexus-tweaks.config.tweaks.comment.autoRepair": "When enabled, pressing the Use Item key while looking at nothing repairs the tool in your selected hotbar slot using your experience.\nThe rate matches vanilla Mending: 1 experience point restores 2 durability.\nOn a multiplayer server this needs the Nexus-Sync mod on the server side.",
+
+  "nexus-tweaks.config.tweaks.name.autoRepairExclusions": "Auto Repair Exclusions",
+  "nexus-tweaks.config.tweaks.prettyName.autoRepairExclusions": "Auto Repair Exclusions",
+  "nexus-tweaks.config.tweaks.comment.autoRepairExclusions": "Item IDs that Auto Repair must never trigger on.\nItems with a use animation (bows, shields, food and so on) and items you can equip with a right click (armor, elytra and so on) are skipped automatically, so this list is only needed for items that act on an empty right click without any animation - the fishing rod being the main one.",
+
+  "nexus-tweaks.config.tweaks.name.massCraftOnServer": "Mass Craft on Server",
+  "nexus-tweaks.config.tweaks.prettyName.massCraftOnServer": "Mass Craft on Server",
+  "nexus-tweaks.config.tweaks.comment.massCraftOnServer": "When enabled, Item Scroller's massCraft is carried out by the server (Nexus-Sync) instead of by rapid clicking.\nThe client only sends one request, and the server fills the crafting grid, crafts, and throws out the results.\nThis needs Item Scroller on the client and Nexus-Sync on the server. Without either of them, Item Scroller crafts as usual.",
+
+  "key.category.nexus-tweaks.main": "Nexus-Tweaks",
+  "key.nexus-tweaks.open_config": "Open Nexus-Tweaks Config",
+
+  "nexus-tweaks.message.repaired": "Repaired %s durability for %s experience.",
+  "nexus-tweaks.message.empty_hand": "Nothing is held in the main hand.",
+  "nexus-tweaks.message.not_damageable": "That item has no durability to repair.",
+  "nexus-tweaks.message.not_damaged": "That item is already fully repaired.",
+  "nexus-tweaks.message.no_xp": "Not enough experience to repair.",
+  "nexus-tweaks.message.disabled": "Auto Repair is disabled on this server.",
+  "nexus-tweaks.message.unknown": "The server returned an unknown result.",
+  "nexus-tweaks.message.server_unsupported": "This server does not have Nexus-Sync installed, so Auto Repair is unavailable.",
+  "nexus-tweaks.message.mass_craft_disabled": "Mass crafting on the server is disabled here. Item Scroller will craft as usual."
+}

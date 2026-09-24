@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.hikariserver.nexustweaks.mixin",
+  "compatibilityLevel": "${java}",
+  "client": [
+    "MixinMinecraft"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
