@@ -12,7 +12,7 @@
 
   "nexus-tweaks.config.tweaks.name.autoRepair": "Auto Repair",
   "nexus-tweaks.config.tweaks.prettyName.autoRepair": "Auto Repair",
-  "nexus-tweaks.config.tweaks.comment.autoRepair": "有効にすると、何にも視点を合わせていない状態でアイテム使用キーを押したとき、\n所持している経験値を使って選択中のスロットの道具を修理します。\n比率はバニラの修繕と同じで、経験値 1 ポイントにつき耐久が 2 回復します。\nマルチプレイではサーバー側に Nexus-Sync を導入する必要があります。",
+  "nexus-tweaks.config.tweaks.comment.autoRepair": "有効にすると、スニークしながら、何にも視点を合わせていない状態で\nアイテム使用キーを押したとき、\n所持している経験値を使って選択中のスロットの道具を修理します。\n比率はバニラの修繕と同じで、経験値 1 ポイントにつき耐久が 2 回復します。\nマルチプレイではサーバー側に Nexus-Sync を導入する必要があります。",
 
   "nexus-tweaks.config.tweaks.name.autoRepairExclusions": "Auto Repair の除外リスト",
   "nexus-tweaks.config.tweaks.prettyName.autoRepairExclusions": "Auto Repair の除外リスト",

@@ -12,7 +12,7 @@
 
   "nexus-tweaks.config.tweaks.name.autoRepair": "Auto Repair",
   "nexus-tweaks.config.tweaks.prettyName.autoRepair": "Auto Repair",
-  "nexus-tweaks.config.tweaks.comment.autoRepair": "When enabled, pressing the Use Item key while looking at nothing repairs the tool in your selected hotbar slot using your experience.\nThe rate matches vanilla Mending: 1 experience point restores 2 durability.\nOn a multiplayer server this needs the Nexus-Sync mod on the server side.",
+  "nexus-tweaks.config.tweaks.comment.autoRepair": "When enabled, sneaking and pressing the Use Item key while looking at nothing repairs the tool in your selected hotbar slot using your experience.\nThe rate matches vanilla Mending: 1 experience point restores 2 durability.\nOn a multiplayer server this needs the Nexus-Sync mod on the server side.",
 
   "nexus-tweaks.config.tweaks.name.autoRepairExclusions": "Auto Repair Exclusions",
   "nexus-tweaks.config.tweaks.prettyName.autoRepairExclusions": "Auto Repair Exclusions",

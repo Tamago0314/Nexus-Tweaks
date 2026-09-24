@@ -22,7 +22,7 @@ import net.minecraft.world.phys.HitResult;
 /**
  * Auto Repair 機能のクライアント側の入口。
  *
- * 「使用ボタン（既定は右クリック）を、何にも視点を合わせていない状態で押したら
+ * 「スニークしながら、何にも視点を合わせていない状態で使用ボタン（既定は右クリック）を押したら
  * 経験値でメインハンドの道具を修理する」という判定と、実行経路の振り分けを行う。
  *
  * 実際の修理計算そのものは RepairLogic が持っていて、こちらはやらない。
@@ -68,7 +68,14 @@ public final class AutoRepair {
             return false;
         }
 
-        // ── 3. クールダウン中でないか ────────────────────────────────
+        // ── 3. スニークしているか ────────────────────────────────────
+        // 使用ボタンだけでは、空に向けて右クリックしたときに毎回発動してしまう。
+        // スニークを足すことで、修理したいときにだけ意図して出せるようにする。
+        if (!mc.player.isShiftKeyDown()) {
+            return false;
+        }
+
+        // ── 4. クールダウン中でないか ────────────────────────────────
         // tickCount はワールドを跨ぐとリセットされるので、
         // 「進んでいない」だけでなく「巻き戻った」場合も通すようにする。
         int now = mc.player.tickCount;
@@ -77,14 +84,14 @@ public final class AutoRepair {
             return false;
         }
 
-        // ── 4. 何にも視点を合わせていないか ──────────────────────────
+        // ── 5. 何にも視点を合わせていないか ──────────────────────────
         // hitResult が MISS のときだけ発動する。
         // ブロックやエンティティを見ているときは、バニラの動作を邪魔しない。
         if (mc.hitResult != null && mc.hitResult.getType() != HitResult.Type.MISS) {
             return false;
         }
 
-        // ── 5. 対象アイテムが修理できるものか ────────────────────────
+        // ── 6. 対象アイテムが修理できるものか ────────────────────────
         ItemStack stack = mc.player.getInventory().getSelectedItem();
 
         if (stack.isEmpty()) {
@@ -97,7 +104,7 @@ public final class AutoRepair {
             return false;
         }
 
-        // ── 6. 右クリックで「使える」アイテムを除外する ──────────────
+        // ── 7. 右クリックで「使える」アイテムを除外する ──────────────
         // 弓・盾・トライデント・食べ物などは空中を右クリックすると実際に動作する。
         // これらは使用アニメーションが NONE 以外なので、それで判別して除外する。
         if (stack.getUseAnimation() != ItemUseAnimation.NONE) {
@@ -119,7 +126,7 @@ public final class AutoRepair {
             return false;
         }
 
-        // ── 7. ここまで来たら実行する ────────────────────────────────
+        // ── 8. ここまで来たら実行する ────────────────────────────────
         lastRepairTick = now;
         dispatchRepair(mc);
 
