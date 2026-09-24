@@ -41,4 +41,18 @@ public abstract class MixinKeybindCallbacks {
             ci.cancel();
         }
     }
+
+    /**
+     * onClientTickMassCraftImpl() の出口すべてに割り込む。
+     *
+     * Item Scroller 側には、インベントリ同期を溜める旗を立てたまま途中で抜ける経路がある。
+     * そこを通ったときに旗を下ろして、溜まったパケットを適用し直す
+     * （詳細は ItemScrollerMassCraft の後始末のメソッドを参照）。
+     *
+     * 先頭で代行に差し替えたときは、こちらは呼ばれない（そもそも旗が立たない）。
+     */
+    @Inject(method = "onClientTickMassCraftImpl", at = @At("RETURN"))
+    private void nexustweaks$releaseBufferedInventoryUpdates(Minecraft mc, CallbackInfo ci) {
+        ItemScrollerMassCraft.onMassCraftTickEnd(mc);
+    }
 }

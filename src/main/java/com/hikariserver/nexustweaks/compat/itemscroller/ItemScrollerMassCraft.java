@@ -3,6 +3,7 @@ package com.hikariserver.nexustweaks.compat.itemscroller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hikariserver.nexustweaks.NexusTweaks;
 import com.hikariserver.nexustweaks.feature.MassCraftClient;
 import com.hikariserver.nexustweaks.network.MassCraftRequestPayload;
 
@@ -11,8 +12,10 @@ import fi.dy.masa.itemscroller.config.Hotkeys;
 import fi.dy.masa.itemscroller.recipes.CraftingHandler;
 import fi.dy.masa.itemscroller.recipes.RecipePattern;
 import fi.dy.masa.itemscroller.recipes.RecipeStorage;
+import fi.dy.masa.itemscroller.util.InventoryUtils;
 import fi.dy.masa.malilib.util.GuiUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -42,8 +45,25 @@ public final class ItemScrollerMassCraft {
      */
     private static final int CRAFTS_PER_ITERATION = 64;
 
+    /**
+     * インベントリ同期の取りこぼしを 1 度でも直したか。
+     *
+     * 押しっぱなしのときは毎 tick 起きうるので、ログは最初の 1 回だけにする。
+     */
+    private static boolean warnedAboutLeftoverBuffer;
+
     /** ユーティリティクラスなのでインスタンス化を禁止する。 */
     private ItemScrollerMassCraft() {
+    }
+
+    /**
+     * Item Scroller の massCraft の処理が終わったあとに呼ばれる。
+     *
+     * 代行を使わずに Item Scroller 自身が走った場合、上で書いた途中の return を通ると
+     * 旗が立ったままになる。その場で直せるよう、抜けた直後にも後始末をする。
+     */
+    public static void onMassCraftTickEnd(Minecraft mc) {
+        releaseBufferedInventoryUpdates(mc);
     }
 
     /**
@@ -53,6 +73,9 @@ public final class ItemScrollerMassCraft {
      *         false なら Item Scroller にそのまま処理させる
      */
     public static boolean onMassCraftTick(Minecraft mc) {
+        // 何をするより先に、溜め込まれたままのインベントリ同期を必ず解放する（理由は下のメソッド）。
+        releaseBufferedInventoryUpdates(mc);
+
         if (!MassCraftClient.isAvailable() || mc.player == null || mc.level == null) {
             return false;
         }
@@ -85,6 +108,54 @@ public final class ItemScrollerMassCraft {
 
         // 送れなかった（大きすぎるなど）ときだけ Item Scroller に任せる。
         return MassCraftClient.send(request);
+    }
+
+    /**
+     * Item Scroller が溜め込んだままにしているインベントリ同期パケットを解放する。
+     *
+     * Item Scroller は massCraft の実行中だけ InventoryUtils.bufferInvUpdates を立て、
+     * その間に届いたインベントリ同期のパケット（ContainerSetContent / ContainerSetSlot）を
+     * 適用せず invUpdatesBuffer へ溜める。処理が終わると旗を下ろして溜めた分を流し込む。
+     *
+     * ところが 0.32.2 には、旗を立てたあと
+     *   「覚えたレシピの素材数 > 今開いているグリッドのマス数」（3x3 のレシピを 2x2 で使ったときなど）
+     * で途中の return をする経路があり、そこを通ると旗が立ったままになる。
+     * こうなるとクライアントはインベントリの同期を一切受け取らなくなり、
+     * アイテムを拾えない・シュルカーの中身が見えない・インベントリを操作できない、という状態になる。
+     *
+     * 通常は次に massCraft が最後まで走れば旗が下りるが、こちらの mixin は代行が使えるとき
+     * massCraft の処理を先頭で打ち切るため、その機会が来ない。
+     * つまり割り込んでいる側の責任として、ここで必ず後始末をする。
+     *
+     * 旗は Item Scroller が 1 回の呼び出しの中で立てて下ろすものなので、
+     * このメソッドが呼ばれる時点（massCraft の処理に入る前）で立っていたら、必ず取りこぼしである。
+     */
+    private static void releaseBufferedInventoryUpdates(Minecraft mc) {
+        if (!InventoryUtils.bufferInvUpdates) {
+            return;
+        }
+
+        // 先に旗を下ろす。下ろさずに流し込むと、Item Scroller 側の割り込みが同じパケットを溜め直す。
+        InventoryUtils.bufferInvUpdates = false;
+
+        if (mc.player == null) {
+            InventoryUtils.invUpdatesBuffer.clear();
+            return;
+        }
+
+        if (!warnedAboutLeftoverBuffer) {
+            warnedAboutLeftoverBuffer = true;
+            NexusTweaks.LOGGER.warn(
+                    "Item Scroller がインベントリ同期のパケットを溜めたままにしていたので、{} 件を適用して解放しました。",
+                    InventoryUtils.invUpdatesBuffer.size());
+        }
+
+        // 溜まっていた分を本来の受け口へ渡す（Item Scroller 自身の後始末と同じ処理）。
+        ClientPacketListener connection = mc.player.connection;
+        InventoryUtils.invUpdatesBuffer.removeIf(packet -> {
+            packet.handle(connection);
+            return true;
+        });
     }
 
     /** massCraft のキーを押しているか、massCraftHold（押しっぱなし扱い）が ON かを返す。 */

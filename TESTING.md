@@ -192,7 +192,16 @@ massCraft を 1 秒押した分を数えると分かる（代行中は `Serverbo
    - 起動ログに「massCraft の代行（Item Scroller 連携）: 無効」が出る
    - `ClassNotFoundException` / `NoClassDefFoundError` が出ない
    - Auto Repair（B の手順）は普通に動く
-4. **Item Scroller を上げたとき**: `gradle.properties` の `itemscroller_version` を新しい版に変えて `runClientSync`
+4. **取りこぼしたインベントリ同期の解放**（v1.0.2 の回帰確認）
+   1. 作業台で **素材が 5 個以上のレシピ**（かまど＝丸石 8 個など）を記憶する
+   2. 作業台を閉じ、**インベントリ画面（2x2）**を開いて massCraft キーを押す
+      （Item Scroller 側に「覚えたレシピがグリッドに入りきらないとき、インベントリ同期を
+      溜める旗を立てたまま抜ける」経路があり、ここを通る）
+   3. そのままアイテムを拾う・シュルカーを開く・インベントリを操作する
+      → **どれも普通にできること**（v1.0.1 以前は、ここで同期が止まって操作できなくなった）
+   4. ログに「Item Scroller がインベントリ同期のパケットを溜めたままにしていたので……」が
+      1 回だけ出ていてよい（直した記録）
+5. **Item Scroller を上げたとき**: `gradle.properties` の `itemscroller_version` を新しい版に変えて `runClientSync`
    - 起動ログに「Item Scroller <版> に割り込み先を確認しました。」が出れば、そのまま代行が働く
    - 「割り込み先が見当たらない」と出た場合は代行が無効になる（Item Scroller の通常の処理に戻るだけで、壊れはしない）
    - メソッドの有無しか見ていないので、大きな版上げのときは massCraft の挙動も F の手順で確かめること
