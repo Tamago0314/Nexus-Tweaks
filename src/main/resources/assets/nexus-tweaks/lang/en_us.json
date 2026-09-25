@@ -20,7 +20,7 @@
 
   "nexus-tweaks.config.tweaks.name.massCraftOnServer": "Mass Craft on Server",
   "nexus-tweaks.config.tweaks.prettyName.massCraftOnServer": "Mass Craft on Server",
-  "nexus-tweaks.config.tweaks.comment.massCraftOnServer": "When enabled, Item Scroller's massCraft is carried out by the server (Nexus-Sync) instead of by rapid clicking.\nThe client only sends one request, and the server fills the crafting grid, crafts, and throws out the results.\nThis needs Item Scroller on the client and Nexus-Sync on the server. Without either of them, Item Scroller crafts as usual.",
+  "nexus-tweaks.config.tweaks.comment.massCraftOnServer": "When enabled, Item Scroller's massCraft is carried out by the server (Nexus-Sync) instead of by rapid clicking.\nThe client only sends one request, and the server fills the crafting grid, crafts, and throws out the results.\nThis needs Item Scroller on the client and Nexus-Sync on the server. Without either of them, Item Scroller crafts as usual.\n\nOff by default. With it off, Item Scroller still uses its own recipe book method. Turn it on when your connection is poor, or when you mass craft recipes that are not in the recipe book.",
 
   "key.category.nexus-tweaks.main": "Nexus-Tweaks",
   "key.nexus-tweaks.open_config": "Open Nexus-Tweaks Config",

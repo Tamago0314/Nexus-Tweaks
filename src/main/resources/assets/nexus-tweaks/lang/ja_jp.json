@@ -20,7 +20,7 @@
 
   "nexus-tweaks.config.tweaks.name.massCraftOnServer": "massCraft をサーバーで実行",
   "nexus-tweaks.config.tweaks.prettyName.massCraftOnServer": "massCraft をサーバーで実行",
-  "nexus-tweaks.config.tweaks.comment.massCraftOnServer": "有効にすると、Item Scroller の massCraft をクリックの連打ではなく\nサーバー（Nexus-Sync）に代行させます。\nクライアントは要求を 1 通送るだけで、グリッドへの充填・クラフト・成果物の投げ捨てはサーバーが行います。\nクライアントに Item Scroller、サーバーに Nexus-Sync が必要です。\nどちらかが無ければ、Item Scroller の通常の処理になります。",
+  "nexus-tweaks.config.tweaks.comment.massCraftOnServer": "有効にすると、Item Scroller の massCraft をクリックの連打ではなく\nサーバー（Nexus-Sync）に代行させます。\nクライアントは要求を 1 通送るだけで、グリッドへの充填・クラフト・成果物の投げ捨てはサーバーが行います。\nクライアントに Item Scroller、サーバーに Nexus-Sync が必要です。\nどちらかが無ければ、Item Scroller の通常の処理になります。\n\n既定は OFF です。OFF のままでも Item Scroller 自身のレシピ本方式で動きます。\n回線が悪いときや、レシピ本に載らないレシピを大量に作るときに ON にしてください。",
 
   "key.category.nexus-tweaks.main": "Nexus-Tweaks",
   "key.nexus-tweaks.open_config": "Nexus-Tweaks の設定を開く",

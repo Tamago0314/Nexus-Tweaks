@@ -123,10 +123,14 @@ public class Configs implements IConfigHandler {
          *
          * 効くのは、クライアントに Item Scroller、サーバーに Nexus-Sync が入っているときだけ。
          * どちらかが無ければ、この設定に関係なく Item Scroller の通常の処理になる。
-         * 代行の具合が悪いときに、すぐ元の動作へ戻せるよう切り替えを残しておく。
+         *
+         * 既定は OFF。
+         * OFF でも Item Scroller 自身がレシピ本を使う方式で動くので、普通に使うぶんには困らない。
+         * 代行は「回線が悪い」「レシピ本に載らないレシピを大量に作る」といった場面で効くもので、
+         * 他の MOD の処理へ割り込む以上どうしても影響範囲が広いため、使いたい人が自分で ON にする形にしてある。
          */
         public static final ConfigBoolean MASS_CRAFT_ON_SERVER =
-                new ConfigBoolean("massCraftOnServer", true).apply(PREFIX);
+                new ConfigBoolean("massCraftOnServer", false).apply(PREFIX);
 
         /** Tweaks タブに並べる設定の一覧。 */
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(

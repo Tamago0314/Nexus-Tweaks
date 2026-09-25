@@ -19,9 +19,14 @@ Minecraft **26.2** / Fabric Loader **0.19.5** 向けのクライアントサイ�
 - 釣り竿のように「アニメーション無しで空撃ちが成立する」アイテムは
   設定の除外リスト（既定で `minecraft:fishing_rod` が入っています）で指定します
 
-### massCraft の代行（Item Scroller 連携）
+### massCraft の代行（Item Scroller 連携・既定は OFF）
 [Item Scroller](https://modrinth.com/mod/item-scroller) の **massCraft**（選択中のレシピで
 まとめてクラフトし、成果物を投げ捨てる機能）を、クリックの連打ではなく**サーバー（Nexus-Sync）に代行**させます。
+
+**既定は OFF です。**設定画面（`N` + `T`）の Tweaks タブから ON にしてください。
+OFF のままでも Item Scroller 自身がレシピ本を使う方式で動くので、普通に使うぶんには困りません。
+他の MOD の処理へ割り込む以上どうしても影響範囲が広いので、
+「回線が悪い」「レシピ本に載らないレシピを大量に作る」といった必要がある人だけが使う形にしてあります。
 
 - クライアントは「このレシピで N 回作って」という要求を **1 通**送るだけで、
   グリッドへの充填・クラフト・成果物の投げ捨てはサーバーがまとめて行います
@@ -48,7 +53,7 @@ Minecraft **26.2** / Fabric Loader **0.19.5** 向けのクライアントサイ�
 | タブ | 内容 |
 | --- | --- |
 | General | Open Nexus-Tweaks Config のホットキー設定 |
-| Tweaks  | Auto Repair の ON/OFF・トグル用ホットキー・除外リスト、massCraft の代行の ON/OFF |
+| Tweaks  | Auto Repair の ON/OFF・トグル用ホットキー・除外リスト、massCraft の代行の ON/OFF（既定 OFF） |
 
 バニラの「操作設定 → キー割り当て」にも **Nexus-Tweaks** カテゴリで
 `Open Nexus-Tweaks Config` が並びます。バニラのキー割り当ては同時押しに対応していないため、

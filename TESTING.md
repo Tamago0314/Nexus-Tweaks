@@ -131,6 +131,8 @@ python scripts/rcon.py vanilla "stop"
 
 ### F. massCraft の代行（`runServer` + `runClientSync`）
 
+**代行は既定で OFF なので、先に設定画面（`N` + `T`）→ Tweaks →「massCraft をサーバーで実行」を ON にすること。**
+
 Item Scroller の操作（既定のキー）:
 - **レシピの記憶**: 作業台のグリッドに手でレシピを並べ、`A`（recipeView）を押しながら出力スロットを**ホイールクリック**
 - **massCraft**: `Ctrl + Alt + C` を押している間、記憶したレシピでクラフトして成果物を投げ捨てる
